@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0d9488" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="application-name" content="ArifOps Pro" />
+  <meta name="apple-mobile-web-app-title" content="ArifOps Pro" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2314b8a6'/%3E%3Cstop offset='100%25' stop-color='%230f766e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='112' fill='url(%23g)'/%3E%3Cpath d='M96 272h72l40-112 64 192 48-128 32 48h64' fill='none' stroke='%23ffffff' stroke-width='38' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2314b8a6'/%3E%3Cstop offset='100%25' stop-color='%230f766e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='112' fill='url(%23g)'/%3E%3Cpath d='M96 272h72l40-112 64 192 48-128 32 48h64' fill='none' stroke='%23ffffff' stroke-width='38' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <title>ArifOps Pro™ | Arif • Operasi & Pengurusan Aset</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            medical: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+              900: '#134e4a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbar & subtle visual polish */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .glass-header {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .card-hover {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-slate-50 to-teal-50/30 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Top Navigation Bar -->
+  <header class="glass-header border-b border-slate-200/80 sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between py-3.5 gap-3">
+        <!-- Brand & Title -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3.5">
+            <div class="bg-gradient-to-br from-medical-500 via-medical-600 to-teal-800 text-white p-2.5 rounded-2xl shadow-md shadow-medical-600/25 ring-1 ring-white/20">
+              <i data-lucide="activity" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 id="appCommercialTitle" class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                  ArifOps Pro<span class="text-medical-600">™</span>
+                </h1>
+                <button onclick="openBrandSettingsModal()" class="p-1 text-slate-400 hover:text-medical-600 hover:bg-slate-100 rounded-lg transition-colors" title="Ubah Nama Pemilik / Penjenamaan Aplikasi">
+                  <i data-lucide="pen-line" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <p class="text-xs text-slate-500 flex flex-wrap items-center gap-1.5 mt-0.5 font-medium">
+                <span id="appOwnerTag" class="font-bold text-slate-700">Arif • Operasi & Pengurusan Aset</span>
+                <span class="text-slate-300">•</span>
+                <span id="cloudStatusDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span id="cloudStatusText">Menyambung pangkalan data...</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Quick Action on Mobile -->
+          <div class="flex items-center gap-2 md:hidden">
+            <button onclick="manualSyncNow()" class="p-2.5 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-xl border border-emerald-200 transition-colors" title="Sync Sekarang">
+              <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+            </button>
+            <button onclick="openCloudSyncModal()" class="p-2.5 text-slate-600 hover:text-medical-700 hover:bg-slate-100 rounded-xl border border-slate-200 transition-colors" title="Tetapan Cloud Sync">
+              <i data-lucide="cloud" class="w-5 h-5 text-medical-600"></i>
+            </button>
+            <button onclick="openAuditLogModal()" class="p-2.5 text-slate-600 hover:text-medical-700 hover:bg-slate-100 rounded-xl border border-slate-200 transition-colors" title="Sejarah Pemeriksaan">
+              <i data-lucide="history" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modular Tabs Navigation & Cloud Sync Controls -->
+        <div class="flex flex-wrap items-center justify-between md:justify-end gap-2.5">
+          <nav class="flex items-center gap-1 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/70 overflow-x-auto" aria-label="Modul Kerja">
+            <button onclick="switchModule('modul1')" id="tab-modul1"
+              class="module-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-bold transition-all whitespace-nowrap bg-white text-medical-700 shadow-xs ring-1 ring-slate-200/60">
+              <i data-lucide="siren" class="w-4 h-4 text-medical-600"></i>
+              <span>Modul 1: Ambulans</span>
+            </button>
+            <button onclick="switchModule('modul2')" id="tab-modul2"
+              class="module-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap text-slate-600 hover:text-slate-900">
+              <i data-lucide="folder-plus" class="w-4 h-4 text-slate-400"></i>
+              <span>Modul 2: Data Kerja 2</span>
+              <span class="text-[10px] bg-slate-200/80 text-slate-600 px-1.5 py-0.5 rounded-md font-bold">Sedia</span>
+            </button>
+            <button onclick="switchModule('modul3')" id="tab-modul3"
+              class="module-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap text-slate-600 hover:text-slate-900">
+              <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i>
+              <span>Modul 3: Data Kerja 3</span>
+              <span class="text-[10px] bg-slate-200/80 text-slate-600 px-1.5 py-0.5 rounded-md font-bold">Sedia</span>
+            </button>
+          </nav>
+
+          <!-- Google Sheets Cloud Sync Quick Bar -->
+          <div class="hidden md:flex items-center gap-2 pl-2 border-l border-slate-200">
+            <button onclick="manualSyncNow()" id="btnManualSync"
+              class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/80 shadow-2xs transition-all"
+              title="Tarik & Hantar Data Terkini ke Google Sheets">
+              <i data-lucide="refresh-cw" id="manualSyncIcon" class="w-3.5 h-3.5"></i>
+              <span>Sync Sekarang</span>
+            </button>
+            <button onclick="openCloudSyncModal()"
+              class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all"
+              title="Tetapan Google Sheets Web App URL">
+              <i data-lucide="cloud-cog" class="w-3.5 h-3.5 text-medical-600"></i>
+              <span>Cloud Sync</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cloud Sync Setup Alert Banner (Shown when URL not yet configured) -->
+  <div id="syncSetupBanner" class="bg-gradient-to-r from-blue-50 via-indigo-50/70 to-blue-50 border-b border-blue-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 text-blue-900">
+        <i data-lucide="info" class="w-4 h-4 text-blue-600 shrink-0"></i>
+        <span><strong>Mod Tempatan (Offline):</strong> Data disimpan di peranti ini sahaja. Sambungkan ke <strong>Google Sheets</strong> untuk selaras secara automatik di telefon & komputer.</span>
+      </div>
+      <button onclick="openCloudSyncModal()"
+        class="self-start sm:self-auto px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors shrink-0">
+        Pasang Google Sheets Sync
+      </button>
+    </div>
+  </div>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ===================================================================== -->
+    <!-- MODUL 1: PENGURUSAN & PEMANTAUAN AMBULANS                             -->
+    <!-- ===================================================================== -->
+    <div id="view-modul1" class="space-y-6">
+
+      <!-- Hero Vehicle Identity & Quick Actions Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-medical-950 text-white p-6 sm:p-7 shadow-lg border border-slate-800">
+        <!-- Decorative subtle background glow -->
+        <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-medical-500/15 blur-2xl pointer-events-none"></div>
+        <div class="absolute -left-16 -bottom-16 w-56 h-56 rounded-full bg-teal-400/10 blur-2xl pointer-events-none"></div>
+
+        <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center text-teal-300 shrink-0 shadow-inner">
+              <i data-lucide="truck" class="w-8 h-8"></i>
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2.5">
+                <h2 id="displayVehicleModel" class="text-2xl font-extrabold text-white tracking-tight">Toyota Ambulance</h2>
+                <span id="displayPlateNo" class="px-3 py-1 text-xs font-extrabold tracking-widest uppercase bg-teal-500/20 text-teal-200 border border-teal-400/30 rounded-xl">
+                  UNIT AMBULANS 01
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1.5 flex flex-wrap items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 bg-white/10 px-2.5 py-0.5 rounded-lg text-slate-200 font-medium">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-teal-300"></i>
+                  <span>27 Nov 2026</span>
+                </span>
+                <span>• Pemantauan Dokumen, Servis & Peralatan Perubatan</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-end gap-2.5">
+            <!-- Overall Ambulance Readiness Selector -->
+            <div class="flex flex-col">
+              <label for="overallStatusSelect" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Status Operasi</label>
+              <select id="overallStatusSelect" onchange="updateVehicleStatus(this.value)"
+                class="text-xs sm:text-sm font-bold rounded-xl px-3.5 py-2.5 bg-white/10 text-white border border-white/20 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-teal-400 cursor-pointer">
+                <option value="READY" class="text-slate-900">🟢 READY (Sedia Beroperasi)</option>
+                <option value="ATTENTION" class="text-slate-900">🟡 PERLU PERHATIAN</option>
+                <option value="MAINTENANCE" class="text-slate-900">🔴 MAINTENANCE / ROSAK</option>
+              </select>
+            </div>
+
+            <button onclick="openVehicleEditModal()"
+              class="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-xl text-xs sm:text-sm font-semibold backdrop-blur-md transition-all">
+              <i data-lucide="settings-2" class="w-4 h-4 text-teal-300"></i>
+              <span>Kemaskini Tarikh & Info</span>
+            </button>
+
+            <button onclick="openAuditLogModal()"
+              class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-xl text-xs sm:text-sm font-semibold backdrop-blur-md transition-all">
+              <i data-lucide="history" class="w-4 h-4 text-teal-300"></i>
+              <span>Log Pemeriksaan</span>
+            </button>
+
+            <button onclick="exportToCSV()"
+              class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-slate-950 rounded-xl text-xs sm:text-sm font-extrabold shadow-md shadow-teal-500/20 transition-all">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Eksport CSV</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Critical Expiry & Component Age Cards (6 Cards Grid) -->
+      <section aria-label="Status Dokumen & Komponen">
+        <div class="flex items-center justify-between mb-3.5">
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-medical-600"></span>
+            <span>Pemantauan Tarikh Luput & Komponen Utama</span>
+          </h3>
+          <span class="text-xs font-medium text-slate-400">Dikira berdasarkan 27 Nov 2026</span>
+        </div>
+
+        <div id="statusCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Servis Minyak (Odometer Tracker) & Keadaan Fizikal Ambulans -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Odometer & Servis Minyak Card (5 cols) -->
+        <div class="lg:col-span-5 bg-white rounded-3xl border border-slate-200/90 p-6 shadow-xs card-hover flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="p-2.5 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-100/70 text-amber-600 border border-amber-200/60">
+                  <i data-lucide="gauge" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-base font-extrabold text-slate-900">Servis Minyak & Odometer</h3>
+                  <p class="text-xs text-slate-500">Toyota Scheduled Maintenance</p>
+                </div>
+              </div>
+              <span id="serviceStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700">
+                Dalam Jadual
+              </span>
+            </div>
+
+            <!-- Last & Next Service Summary -->
+            <div class="grid grid-cols-2 gap-3.5 mb-5">
+              <div class="bg-slate-50/90 p-3.5 rounded-2xl border border-slate-200/70">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Servis Terakhir</span>
+                <span id="lastServiceKmText" class="text-lg font-extrabold text-slate-800 block mt-0.5">61,432 km</span>
+                <span id="lastServiceDateText" class="text-xs font-medium text-slate-500 block mt-0.5">28 Jul 2026</span>
+              </div>
+              <div class="bg-gradient-to-br from-blue-50 to-indigo-50/60 p-3.5 rounded-2xl border border-blue-200/70">
+                <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider block">Servis Seterusnya</span>
+                <span id="nextServiceKmText" class="text-lg font-extrabold text-blue-950 block mt-0.5">66,608 km</span>
+                <span id="kmRemainingText" class="text-xs font-bold text-blue-700 block mt-0.5">Baki: 5,176 km</span>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-5">
+              <div class="flex justify-between text-xs font-bold text-slate-600 mb-2">
+                <span>Penggunaan Jarak Servis</span>
+                <span id="serviceProgressPct" class="text-medical-700">0%</span>
+              </div>
+              <div class="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200/80 shadow-inner">
+                <div id="serviceProgressBar" class="h-full bg-medical-600 rounded-full transition-all duration-500" style="width: 10%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Update Current Odometer Form -->
+          <div class="pt-4 border-t border-slate-100">
+            <label for="currentOdometerInput" class="block text-xs font-bold text-slate-700 mb-2">
+              Kemaskini Bacaan Odometer Semasa (km)
+            </label>
+            <div class="flex gap-2">
+              <input type="number" id="currentOdometerInput" placeholder="Contoh: 63200"
+                class="flex-1 px-3.5 py-2.5 text-sm font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-medical-500 focus:bg-white transition-all" />
+              <button onclick="saveCurrentOdometer()"
+                class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all shrink-0">
+                Simpan KM
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keadaan Fizikal & Teknikal Ambulans (7 cols) -->
+        <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200/90 p-6 shadow-xs card-hover flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="p-2.5 rounded-2xl bg-gradient-to-br from-medical-50 to-teal-100/70 text-medical-700 border border-medical-200/60">
+                  <i data-lucide="wrench" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-base font-extrabold text-slate-900">Pemeriksaan Keadaan Fizikal Ambulans</h3>
+                  <p class="text-xs text-slate-500">Semakan sistem kenderaan & keselamatan kecemasan</p>
+                </div>
+              </div>
+              <span id="vehicleCheckCountBadge" class="text-xs font-extrabold px-3 py-1 rounded-full bg-medical-100 text-medical-800">
+                8 / 8 Baik
+              </span>
+            </div>
+
+            <div id="vehicleConditionGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-5">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100">
+            <label for="vehicleNotesInput" class="block text-xs font-bold text-slate-700 mb-2">
+              Catatan Kerosakan / Penyelenggaraan Kenderaan
+            </label>
+            <div class="flex gap-2">
+              <input type="text" id="vehicleNotesInput" placeholder="Tiada masalah mekanikal. Semua sistem berfungsi baik..."
+                class="flex-1 px-3.5 py-2.5 text-sm text-slate-700 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-medical-500 focus:bg-white transition-all" />
+              <button onclick="saveVehicleNotes()"
+                class="px-4 py-2.5 bg-medical-600 hover:bg-medical-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all shrink-0">
+                Simpan Nota
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medical Equipment Checklist Section -->
+      <section class="bg-white rounded-3xl border border-slate-200/90 shadow-xs overflow-hidden">
+        <!-- Checklist Header & Stats -->
+        <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-50 via-white to-slate-50">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <div class="flex flex-wrap items-center gap-2.5">
+                <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                  <i data-lucide="clipboard-list" class="w-5 h-5 text-medical-600"></i>
+                  <span>Checklist Peralatan Perubatan & Ubat-Ubatan</span>
+                </h3>
+                <span id="equipIssueBadge" class="hidden text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200">
+                  0 Perlu Tindakan
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">
+                Semak kuantiti, status fungsi dan tarikh luput bagi semua 6 kategori peralatan di dalam ambulans
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2.5">
+              <button onclick="openAddEquipmentModal()"
+                class="flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl text-xs font-bold transition-colors">
+                <i data-lucide="plus" class="w-4 h-4 text-medical-600"></i>
+                <span>Tambah Item Baru</span>
+              </button>
+
+              <button onclick="recordInspectionLog()"
+                class="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors">
+                <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                <span>Sahkan & Simpan Rekod Pemeriksaan</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Progress & Filter Bar -->
+          <div class="mt-4 pt-4 border-t border-slate-200/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <!-- Completion Meter -->
+            <div class="flex items-center gap-3 min-w-[240px]">
+              <div class="flex-1">
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span class="text-slate-600">Kelengkapan Peralatan</span>
+                  <span id="equipCompleteCount" class="text-medical-700">0 / 0 Item</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                  <div id="equipProgressBar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width: 100%"></div>
+                </div>
+              </div>
+              <span id="equipCompletePct" class="text-sm font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                100%
+              </span>
+            </div>
+
+            <!-- Search & Filters -->
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="relative flex-1 sm:w-56">
+                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                <input type="text" id="equipmentSearchInput" oninput="renderEquipmentList()" placeholder="Cari nama peralatan..."
+                  class="w-full pl-9 pr-3 py-1.5 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-medical-500" />
+              </div>
+
+              <select id="categoryFilterSelect" onchange="renderEquipmentList()"
+                class="px-3 py-1.5 text-xs font-semibold bg-white border border-slate-300 rounded-xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-medical-500">
+                <option value="ALL">Semua Kategori (6)</option>
+                <option value="Airway & Oxygen Unit">1. Airway & Oxygen Unit</option>
+                <option value="Emergency Unit & IV Access">2. Emergency Unit & IV Access</option>
+                <option value="Wound Care, Bandages & Medications">3. Wound Care & Medications</option>
+                <option value="Portable Suction Unit">4. Portable Suction Unit</option>
+                <option value="Splints, Immobilization & Stretchers">5. Splints & Stretchers</option>
+                <option value="Others & Safety">6. Others & Safety</option>
+              </select>
+
+              <div class="flex rounded-xl bg-slate-200/70 p-1">
+                <button onclick="setStatusFilter('ALL')" id="filter-ALL"
+                  class="status-filter-btn px-3 py-1 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-xs">
+                  Semua
+                </button>
+                <button onclick="setStatusFilter('COMPLETE')" id="filter-COMPLETE"
+                  class="status-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900">
+                  Lengkap
+                </button>
+                <button onclick="setStatusFilter('ISSUE')" id="filter-ISSUE"
+                  class="status-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900">
+                  Perlu Tambah / Rosak
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Equipment Categories Container -->
+        <div id="equipmentCategoriesContainer" class="divide-y divide-slate-200">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODUL 2: RUANG KERJA KEDUA (PLACEHOLDER MODULAR)                      -->
+    <!-- ===================================================================== -->
+    <div id="view-modul2" class="hidden">
+      <div class="bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 text-center max-w-2xl mx-auto my-8 shadow-xs">
+        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="folder-kanban" class="w-8 h-8"></i>
+        </div>
+        <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-100 text-blue-700">
+          Slot Modular Sedia Digunakan
+        </span>
+        <h2 class="text-2xl font-bold text-slate-900 mt-3">Modul 2: Data Kerja Kedua</h2>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+          Tab ini telah disediakan khas untuk tugasan pengurusan dan pemantauan data kerja kedua anda. Ia menggunakan pangkalan data dan Google Sheets Cloud Sync yang sama secara berasingan.
+        </p>
+        <div class="mt-6 p-4 bg-slate-50 rounded-xl border border-slate-200 text-left text-xs text-slate-600 space-y-1.5">
+          <p class="font-bold text-slate-800">Contoh modul yang boleh ditambah ke sini:</p>
+          <p>• Rekod Log Perjalanan / Tugasan Kes Kecemasan & Pesakit</p>
+          <p>• Inventori Stok Simpanan Utama / Stor Klinik</p>
+          <p>• Jadual Tugas Pemandu & Paramedik / Rekod Tuntutan</p>
+        </div>
+        <button onclick="switchModule('modul1')"
+          class="mt-6 px-5 py-2.5 bg-medical-600 hover:bg-medical-700 text-white text-sm font-semibold rounded-xl transition-colors">
+          Kembali ke Modul 1: Ambulans
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODUL 3: RUANG KERJA KETIGA (PLACEHOLDER MODULAR)                      -->
+    <!-- ===================================================================== -->
+    <div id="view-modul3" class="hidden">
+      <div class="bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 text-center max-w-2xl mx-auto my-8 shadow-xs">
+        <div class="w-16 h-16 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="database" class="w-8 h-8"></i>
+        </div>
+        <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-purple-100 text-purple-700">
+          Slot Modular Sedia Digunakan
+        </span>
+        <h2 class="text-2xl font-bold text-slate-900 mt-3">Modul 3: Data Kerja Ketiga</h2>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+          Ruang ini dikhaskan untuk kategori data kerja ketiga anda supaya semua rekod operasi harian tersusun rapi dalam satu aplikasi tunggal.
+        </p>
+        <button onclick="switchModule('modul1')"
+          class="mt-6 px-5 py-2.5 bg-medical-600 hover:bg-medical-700 text-white text-sm font-semibold rounded-xl transition-colors">
+          Kembali ke Modul 1: Ambulans
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL 1: TETAPAN GOOGLE SHEETS CLOUD SYNC                               -->
+  <!-- ======================================================================= -->
+  <div id="cloudSyncModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-xl border border-slate-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <i data-lucide="cloud-cog" class="w-5 h-5 text-medical-600"></i>
+          <span>Tetapan Google Sheets Cloud Sync</span>
+        </h3>
+        <button onclick="closeCloudSyncModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-5 text-xs">
+        <form onsubmit="saveGoogleSheetsUrl(event)" class="space-y-3">
+          <div class="flex items-center justify-between">
+            <label for="googleSheetsUrlInput" class="font-bold text-slate-700">Google Apps Script Web App URL</label>
+            <span class="text-[11px] text-slate-500">Sync Terakhir: <strong id="modalLastSyncText" class="text-slate-800">Belum diselaraskan</strong></span>
+          </div>
+          <input type="url" id="googleSheetsUrlInput" placeholder="https://script.google.com/macros/s/.../exec"
+            class="w-full px-3.5 py-2.5 text-xs font-mono bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-medical-500" />
+
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="submit"
+                class="px-4 py-2 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl shadow-xs transition-colors">
+                Simpan URL &amp; Sambung
+              </button>
+              <a id="webAppLoginTestLink" href="https://drive.google.com/a/uitm.edu.my" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold rounded-xl transition-colors">
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                <span>Uji / Log Masuk UiTM</span>
+              </a>
+            </div>
+            <button type="button" onclick="disconnectGoogleSheets()"
+              class="px-3 py-2 text-rose-600 hover:bg-rose-50 font-semibold rounded-xl transition-colors">
+              Putuskan Sambungan
+            </button>
+          </div>
+
+          <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200/80 text-[11px] text-emerald-950 space-y-1.5">
+            <p class="font-extrabold text-emerald-800">📱 CARA PALING SENANG BUKA DI TELEFON (AUTO-SYNC 100%):</p>
+            <p>1. Di Google Sheets UiTM anda, klik <strong>Extensions &gt; Apps Script</strong>.</p>
+            <p>2. Tampal <strong>Kod Skrip</strong> di bawah ke dalam fail <code>Code.gs</code>.</p>
+            <p>3. Klik ikon <strong>+</strong> di sebelah kiri <em>Files</em> &gt; pilih <strong>HTML</strong> &gt; namakan fail itu tepat sebagai <code>Index</code> (huruf besar I).</p>
+            <p>4. Tampal keseluruhan kod fail aplikasi <code>ambulance_fleet_manager.html</code> ini ke dalam fail <code>Index.html</code> tersebut &gt; tekan <strong>Save &amp; Deploy (New version)</strong>.</p>
+            <p>5. Buka <strong>Web App URL</strong> di Chrome/Safari telefon &gt; log masuk emel <strong>@uitm.edu.my</strong> &gt; tekan <strong>Add to Home Screen</strong>. Selepas ini setiap kali buka di telefon, data terus <strong>Auto-Sync</strong> tanpa perlu fail HTML!</p>
+          </div>
+        </form>
+
+        <div class="border-t border-slate-200 pt-4 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-700">Kod Google Apps Script (Copy &amp; Paste ke Code.gs)</h4>
+            <button type="button" onclick="copyAppsScriptCode()"
+              class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Salin Kod Skrip</span>
+            </button>
+          </div>
+          <pre id="appsScriptCodeBlock" class="bg-slate-900 text-emerald-300 p-3.5 rounded-xl text-[11px] font-mono overflow-x-auto leading-relaxed">function doGet(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var dbSheet = ss.getSheetByName("DB_RAW") || ss.insertSheet("DB_RAW");
+  dbSheet.hideSheet();
+  var raw = dbSheet.getRange("A1").getValue() || "{}";
+
+  // Jika dipanggil oleh fail HTML luar menggunakan JSONP
+  if (e && e.parameter && e.parameter.callback) {
+    return ContentService.createTextOutput(e.parameter.callback + "(" + raw + ")")
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+
+  // Jika dibuka terus sebagai Web App di telefon / komputer (Auto-Sync 100%)
+  try {
+    var html = HtmlService.createHtmlOutputFromFile("Index")
+      .setTitle("ArifOps Pro™ | Operasi & Pengurusan Aset")
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+      .addMetaTag("viewport", "width=device-width, initial-scale=1.0");
+    return html;
+  } catch (err) {
+    return ContentService.createTextOutput(raw).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function getAppData() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var dbSheet = ss.getSheetByName("DB_RAW") || ss.insertSheet("DB_RAW");
+  dbSheet.hideSheet();
+  return dbSheet.getRange("A1").getValue() || "{}";
+}
+
+function saveAppData(jsonStr) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var dbSheet = ss.getSheetByName("DB_RAW") || ss.insertSheet("DB_RAW");
+  dbSheet.hideSheet();
+  dbSheet.getRange("A1").setValue(jsonStr);
+
+  try {
+    var data = JSON.parse(jsonStr);
+    var viewSheet = ss.getSheets()[0];
+    viewSheet.clear();
+    var v = data.vehicle || {};
+    var brand = data.brand || {};
+    viewSheet.appendRow([brand.title || "ArifOps Pro", brand.owner || "Arif • Operasi & Pengurusan Aset"]);
+    viewSheet.appendRow(["Kenderaan", v.model || "", "Unit", v.plateNo || "", "Status", v.overallStatus || ""]);
+    viewSheet.appendRow(["Roadtax", v.roadtaxExpiry || "", "Insurans", v.insuranceExpiry || "", "Puspakom", v.puspakomExpiry || ""]);
+    viewSheet.appendRow(["Lesen Pemandu", v.driverLicenseExpiry || "", "Odometer Semasa", v.currentOdometerKm || "", "Target Servis", v.nextServiceKm || ""]);
+    viewSheet.appendRow([]);
+    viewSheet.appendRow(["Kategori", "Nama Peralatan / Ubat", "Disemak", "Kuantiti", "Status", "Tarikh Luput", "Catatan"]);
+    if (Array.isArray(data.equipment)) {
+      data.equipment.forEach(function(item) {
+        viewSheet.appendRow([item.category, item.name, item.checked ? "Ya" : "Tidak", item.qty, item.condition, item.expiry || "-", item.note || "-"]);
+      });
+    }
+  } catch (err) {}
+  return "OK";
+}
+
+function doPost(e) {
+  var jsonStr = (e.parameter && e.parameter.payload) ? e.parameter.payload : (e.postData ? e.postData.contents : "{}");
+  saveAppData(jsonStr);
+  return ContentService.createTextOutput("OK").setMimeType(ContentService.MimeType.TEXT);
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL 2: KEMASKINI TARIKH & MAKLUMAT KENDERAAN                          -->
+  <!-- ======================================================================= -->
+  <div id="vehicleEditModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] flex flex-col shadow-xl border border-slate-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <h3 class="text-base font-bold text-slate-900">Kemaskini Maklumat & Tarikh Ambulans</h3>
+        <button onclick="closeVehicleEditModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form onsubmit="saveVehicleDetails(event)" class="p-6 overflow-y-auto space-y-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Model Kenderaan</label>
+            <input type="text" id="editModel" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Nombor Plat / Kod Unit</label>
+            <input type="text" id="editPlate" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tarikh Luput Roadtax</label>
+            <input type="date" id="editRoadtax" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tarikh Luput Insurans</label>
+            <input type="date" id="editInsurance" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tarikh Luput Puspakom</label>
+            <input type="date" id="editPuspakom" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tarikh Luput Lesen Pemandu</label>
+            <input type="date" id="editDriverLicense" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tarikh Servis Terakhir</label>
+            <input type="date" id="editLastServiceDate" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">KM Servis Terakhir</label>
+            <input type="number" id="editLastServiceKm" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Target KM Servis Seterusnya</label>
+            <input type="number" id="editNextServiceKm" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tarikh Tukar Bateri</label>
+            <input type="date" id="editBatteryDate" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block font-bold text-slate-700 mb-1">Tarikh Tukar 4 Tayar + Tayar Spare</label>
+            <input type="date" id="editTyreDate" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+        </div>
+        <div class="pt-3 border-t border-slate-200 flex justify-end gap-2">
+          <button type="button" onclick="closeVehicleEditModal()" class="px-4 py-2 font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
+          <button type="submit" class="px-5 py-2 font-bold bg-medical-600 hover:bg-medical-700 text-white rounded-xl">Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL 3: TAMBAH PERALATAN PERUBATAN BARU                                -->
+  <!-- ======================================================================= -->
+  <div id="addEquipmentModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-xl border border-slate-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <h3 class="text-base font-bold text-slate-900">Tambah Item Peralatan Baru</h3>
+        <button onclick="closeAddEquipmentModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form onsubmit="handleAddEquipment(event)" class="p-6 space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori</label>
+          <select id="newEquipCategory" class="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white">
+            <option value="Airway & Oxygen Unit">1. Airway & Oxygen Unit</option>
+            <option value="Emergency Unit & IV Access">2. Emergency Unit & IV Access</option>
+            <option value="Wound Care, Bandages & Medications">3. Wound Care, Bandages & Medications</option>
+            <option value="Portable Suction Unit">4. Portable Suction Unit</option>
+            <option value="Splints, Immobilization & Stretchers">5. Splints, Immobilization & Stretchers</option>
+            <option value="Others & Safety">6. Others & Safety</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nama Peralatan / Ubat</label>
+          <input type="text" id="newEquipName" required placeholder="Contoh: Pulse Oximeter" class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Kuantiti</label>
+            <input type="number" id="newEquipQty" value="1" min="1" required class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tarikh Luput (Pilihan)</label>
+            <input type="date" id="newEquipExpiry" class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Catatan</label>
+          <input type="text" id="newEquipNote" placeholder="Contoh: Simpan dalam beg merah" class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+        </div>
+        <div class="pt-3 border-t border-slate-200 flex justify-end gap-2">
+          <button type="button" onclick="closeAddEquipmentModal()" class="px-4 py-2 font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
+          <button type="submit" class="px-5 py-2 font-bold bg-medical-600 hover:bg-medical-700 text-white rounded-xl">Tambah Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL 4: LOG SEJARAH PEMERIKSAAN                                        -->
+  <!-- ======================================================================= -->
+  <div id="auditLogModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-xl border border-slate-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <i data-lucide="history" class="w-5 h-5 text-medical-600"></i>
+          <span>Sejarah Rekod Pemeriksaan Rasmi</span>
+        </h3>
+        <button onclick="closeAuditLogModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="auditLogListContainer" class="p-6 overflow-y-auto space-y-3"></div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL 5: PENJENAMAAN & IDENTITI PEMILIK APPS                            -->
+  <!-- ======================================================================= -->
+  <div id="brandSettingsModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-xl border border-slate-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <i data-lucide="award" class="w-5 h-5 text-medical-600"></i>
+          <span>Penjenamaan & Identiti Pemilik</span>
+        </h3>
+        <button onclick="closeBrandSettingsModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="saveBrandSettings(event)" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Komersial Aplikasi</label>
+          <input type="text" id="inputBrandTitle" required placeholder="Contoh: ArifOps Pro™ / ArifFleet Pro™"
+            class="w-full px-3.5 py-2 text-sm font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-medical-500 focus:outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Anda / Unit / Syarikat</label>
+          <input type="text" id="inputOwnerName" required placeholder="Contoh: Arif • Unit Kecemasan & Logistik"
+            class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-medical-500 focus:outline-none" />
+          <p class="text-[11px] text-slate-500 mt-1">
+            * Nama ini akan dipaparkan di bar atas aplikasi dan pada setiap laporan CSV/Google Sheets.
+          </p>
+        </div>
+
+        <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeBrandSettingsModal()"
+            class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">
+            Batal
+          </button>
+          <button type="submit"
+            class="px-5 py-2 text-sm font-semibold bg-medical-600 hover:bg-medical-700 text-white rounded-xl shadow-xs">
+            Simpan Identiti
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Banner -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5 text-sm font-medium">
+      <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+      <span id="toastMessage">Data berjaya disimpan</span>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- APPLICATION LOGIC & GOOGLE SHEETS TWO-WAY CLOUD SYNC                    -->
+  <!-- ======================================================================= -->
+  <script>
+    // Reference date as requested: 27 November 2026
+    const REFERENCE_DATE_STR = "2026-11-27";
+    const REFERENCE_DATE = new Date("2026-11-27T00:00:00");
+
+    // LocalStorage Keys
+    const STORAGE_KEY_STATE = "ambulance_ops_full_state_v1";
+    const STORAGE_KEY_GSHEET_URL = "ambulance_ops_gsheet_webapp_url_v1";
+    const STORAGE_KEY_LAST_SYNC = "ambulance_ops_last_sync_time_v1";
+
+    // Optional: Tampal Web App URL anda di sini jika mahu ia kekal automatik di semua telefon tanpa perlu setting semula
+    const DEFAULT_WEB_APP_URL = "https://script.google.com/a/macros/uitm.edu.my/s/AKfycbyPtQ5b4XDIb-g5AZ8wGhz0UiU1rjaISB6eZwp8E9zAdXpkMPx9gMs_0bhjXnp3m7t5/exec";
+
+    // In-memory fallback in case iframe/browser restricts localStorage
+    let memoryWebAppUrl = DEFAULT_WEB_APP_URL;
+    let memoryLastSync = "";
+    let hasInitialCloudPull = false;
+
+    const DEFAULT_VEHICLE_DATA = {
+      model: "Toyota Ambulance",
+      plateNo: "UNIT AMBULANS 01",
+      overallStatus: "READY",
+      roadtaxExpiry: "2027-03-01",
+      insuranceExpiry: "2027-05-06",
+      puspakomExpiry: "2027-03-01",
+      driverLicenseExpiry: "2026-08-08",
+      lastServiceDate: "2026-07-28",
+      lastServiceKm: 61432,
+      nextServiceKm: 66608,
+      currentOdometerKm: 61432,
+      batteryChangedDate: "2024-06-26",
+      tyresChangedDate: "2024-03-11",
+      vehicleNotes: "Semua sistem kecemasan berada dalam keadaan baik.",
+      vehicleConditions: [
+        { id: "cond_siren", label: "Siren & Lampu Beacon Kecemasan", ok: true },
+        { id: "cond_ac_front", label: "Penyaman Udara (Aircond) Kabin Hadapan", ok: true },
+        { id: "cond_ac_rear", label: "Penyaman Udara (Aircond) Ruang Pesakit", ok: true },
+        { id: "cond_brake", label: "Sistem Brek & Brek Tangan", ok: true },
+        { id: "cond_lights", label: "Lampu Utama, Signal & Lampu Brek", ok: true },
+        { id: "cond_inverter", label: "Sistem Elektrik / Inverter / Soket 12V", ok: true },
+        { id: "cond_wiper", label: "Wiper & Air Pengelap Cermin", ok: true },
+        { id: "cond_body", label: "Kebersihan Dalaman & Luaran Ambulans", ok: true }
+      ]
+    };
+
+    // Complete 71-Item Medical Equipment Checklist categorized neatly
+    const INITIAL_EQUIPMENT_LIST = [
+      // 1. Airway & Oxygen Unit
+      { id: "eq_1", category: "Airway & Oxygen Unit", name: "AED (Automated External Defibrillator)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "Bateri & pad diperiksa" },
+      { id: "eq_2", category: "Airway & Oxygen Unit", name: "Oxygen Tank 4L & Regulator", checked: true, qty: 1, expiry: "", condition: "Baik", note: "Tekanan penuh" },
+      { id: "eq_3", category: "Airway & Oxygen Unit", name: "Face Mask with Bag Valve Mask (BVM)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_4", category: "Airway & Oxygen Unit", name: "High Flow Mask", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_5", category: "Airway & Oxygen Unit", name: "Simple Face Mask", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_6", category: "Airway & Oxygen Unit", name: "Nasal Prong", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_7", category: "Airway & Oxygen Unit", name: "Nebulizer Mask", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_8", category: "Airway & Oxygen Unit", name: "Oxygen Humidifier", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_9", category: "Airway & Oxygen Unit", name: "BP Monitoring Set", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+
+      // 2. Emergency Unit & IV Access
+      { id: "eq_10", category: "Emergency Unit & IV Access", name: "Stethoscope", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_11", category: "Emergency Unit & IV Access", name: "Disposable Glove Size M (Box)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_12", category: "Emergency Unit & IV Access", name: "Disposable Glove Size L (Box)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_13", category: "Emergency Unit & IV Access", name: "Normal Saline 0.9%", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_14", category: "Emergency Unit & IV Access", name: "Hartmann's Solution", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_15", category: "Emergency Unit & IV Access", name: "NSD5% Solution", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_16", category: "Emergency Unit & IV Access", name: "Water for Injection", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_17", category: "Emergency Unit & IV Access", name: "IV Infusion Set", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_18", category: "Emergency Unit & IV Access", name: "Branula Size 18G", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_19", category: "Emergency Unit & IV Access", name: "Branula Size 20G", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_20", category: "Emergency Unit & IV Access", name: "Branula Size 22G", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_21", category: "Emergency Unit & IV Access", name: "Syringe 3cc", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_22", category: "Emergency Unit & IV Access", name: "Syringe 5cc", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_23", category: "Emergency Unit & IV Access", name: "Syringe 10cc", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_24", category: "Emergency Unit & IV Access", name: "Needle 21G", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_25", category: "Emergency Unit & IV Access", name: "Needle 23G", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_26", category: "Emergency Unit & IV Access", name: "Needle 26G", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+
+      // 3. Wound Care, Bandages & Medications
+      { id: "eq_27", category: "Wound Care, Bandages & Medications", name: "Alcohol Swab", checked: true, qty: 20, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_28", category: "Wound Care, Bandages & Medications", name: "Micropore Tape", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_29", category: "Wound Care, Bandages & Medications", name: "Handyplast", checked: true, qty: 20, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_30", category: "Wound Care, Bandages & Medications", name: "Wooden Spatula", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_31", category: "Wound Care, Bandages & Medications", name: "Disposable Dressing Set", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_32", category: "Wound Care, Bandages & Medications", name: "Crepe Bandage 10cm", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_33", category: "Wound Care, Bandages & Medications", name: "Crepe Bandage 7cm", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_34", category: "Wound Care, Bandages & Medications", name: "Crepe Bandage 5cm", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_35", category: "Wound Care, Bandages & Medications", name: "Coban Bandage", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_36", category: "Wound Care, Bandages & Medications", name: "Arm Sling", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_37", category: "Wound Care, Bandages & Medications", name: "Scissors with Black Handle (Trauma Shears)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_38", category: "Wound Care, Bandages & Medications", name: "Menzza Cream", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_39", category: "Wound Care, Bandages & Medications", name: "CMC Ointment", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_40", category: "Wound Care, Bandages & Medications", name: "Voltaren Gel", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_41", category: "Wound Care, Bandages & Medications", name: "Ethyl Chloride Spray", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_42", category: "Wound Care, Bandages & Medications", name: "Ventolin (Nebule / Inhaler)", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+
+      // 4. Portable Suction Unit
+      { id: "eq_43", category: "Portable Suction Unit", name: "Suction Tubing", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_44", category: "Portable Suction Unit", name: "Yankauer Sucker", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_45", category: "Portable Suction Unit", name: "Manual Suction Pump", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+
+      // 5. Splints, Immobilization & Stretchers
+      { id: "eq_46", category: "Splints, Immobilization & Stretchers", name: "Leg Splint (Adult)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_47", category: "Splints, Immobilization & Stretchers", name: "Leg Splint (Child)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_48", category: "Splints, Immobilization & Stretchers", name: "Arm Splint (Adult)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_49", category: "Splints, Immobilization & Stretchers", name: "Arm Splint (Child)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_50", category: "Splints, Immobilization & Stretchers", name: "Traction Splint", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_51", category: "Splints, Immobilization & Stretchers", name: "Cervical Collar (Adult)", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_52", category: "Splints, Immobilization & Stretchers", name: "Mobile Scoop Stretcher", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_53", category: "Splints, Immobilization & Stretchers", name: "Mobile Stretcher (Main Ambulance Stretcher)", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_54", category: "Splints, Immobilization & Stretchers", name: "Spinal Board + Head Immobilizer", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+
+      // 6. Others & Safety
+      { id: "eq_55", category: "Others & Safety", name: "Hand Sanitizer", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_56", category: "Others & Safety", name: "Sharp Bin", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_57", category: "Others & Safety", name: "Sterile Cotton", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_58", category: "Others & Safety", name: "Sterile Gauze", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_59", category: "Others & Safety", name: "Sterile Gamgee", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_60", category: "Others & Safety", name: "Sterile Gloves Size 6 1/2", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_61", category: "Others & Safety", name: "Sterile Gloves Size 7 1/2", checked: true, qty: 3, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_62", category: "Others & Safety", name: "Hypafix 5cm", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_63", category: "Others & Safety", name: "Hypafix 10cm", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_64", category: "Others & Safety", name: "KY Jelly", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_65", category: "Others & Safety", name: "Sterile Strip", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_66", category: "Others & Safety", name: "Normal Saline for Irrigation", checked: true, qty: 2, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_67", category: "Others & Safety", name: "Povidone Iodine", checked: true, qty: 1, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_68", category: "Others & Safety", name: "Fire Extinguisher 1kg", checked: true, qty: 1, expiry: "", condition: "Baik", note: "Jarum tekanan hijau" },
+      { id: "eq_69", category: "Others & Safety", name: "Stopper (IV / Combi Stopper)", checked: true, qty: 5, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_70", category: "Others & Safety", name: "Eye Pads", checked: true, qty: 4, expiry: "", condition: "Baik", note: "" },
+      { id: "eq_71", category: "Others & Safety", name: "Pen Torch", checked: true, qty: 1, expiry: "", condition: "Baik", note: "Bateri berfungsi" }
+    ];
+
+    // Application State (Covers Modul 1, Modul 2 & Modul 3 for unified sync)
+    let state = {
+      brand: {
+        title: "ArifOps Pro™",
+        owner: "Arif • Operasi & Pengurusan Aset"
+      },
+      webAppUrl: "",
+      vehicle: JSON.parse(JSON.stringify(DEFAULT_VEHICLE_DATA)),
+      equipment: JSON.parse(JSON.stringify(INITIAL_EQUIPMENT_LIST)),
+      auditLogs: [],
+      modul2Data: [],
+      modul3Data: [],
+      statusFilter: "ALL",
+      lastUpdated: new Date().toISOString()
+    };
+
+    let syncInProgress = false;
+
+    // Detect if running natively inside Google Apps Script Web App
+    function isNativeAppsScript() {
+      return typeof window.google !== "undefined" && window.google.script && window.google.script.run;
+    }
+
+    // Cloud Sync Storage & Status Helpers
+    function getWebAppUrl() {
+      if (isNativeAppsScript()) return "NATIVE_GAS_WEBAPP";
+      if (state.webAppUrl) return state.webAppUrl;
+      if (memoryWebAppUrl) return memoryWebAppUrl;
+      try {
+        return localStorage.getItem(STORAGE_KEY_GSHEET_URL) || DEFAULT_WEB_APP_URL || "";
+      } catch (e) {
+        return DEFAULT_WEB_APP_URL || "";
+      }
+    }
+
+    function setWebAppUrlStorage(url) {
+      state.webAppUrl = url;
+      memoryWebAppUrl = url;
+      try {
+        if (url) localStorage.setItem(STORAGE_KEY_GSHEET_URL, url);
+        else localStorage.removeItem(STORAGE_KEY_GSHEET_URL);
+        localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(state));
+      } catch (e) {}
+    }
+
+    function setLastSyncTime(timeStr) {
+      memoryLastSync = timeStr;
+      try {
+        localStorage.setItem(STORAGE_KEY_LAST_SYNC, timeStr);
+      } catch (e) {}
+      updateLastSyncDisplay();
+    }
+
+    function updateLastSyncDisplay() {
+      let last = memoryLastSync;
+      try {
+        last = localStorage.getItem(STORAGE_KEY_LAST_SYNC) || memoryLastSync;
+      } catch (e) {}
+      const el = document.getElementById("modalLastSyncText");
+      if (el) el.textContent = last || "Belum diselaraskan";
+    }
+
+    function updateCloudStatusUI(mode, customText) {
+      const dot = document.getElementById("cloudStatusDot");
+      const text = document.getElementById("cloudStatusText");
+      const banner = document.getElementById("syncSetupBanner");
+      const hasUrl = Boolean(getWebAppUrl());
+
+      if (banner) {
+        banner.classList.toggle("hidden", hasUrl);
+      }
+      if (!dot || !text) return;
+
+      if (mode === "synced") {
+        dot.className = "w-2 h-2 rounded-full bg-emerald-500";
+        text.textContent = customText || "Google Sheets Synced";
+      } else if (mode === "syncing") {
+        dot.className = "w-2 h-2 rounded-full bg-amber-400 animate-ping";
+        text.textContent = customText || "Menyelaras data...";
+      } else if (mode === "error") {
+        dot.className = "w-2 h-2 rounded-full bg-rose-500";
+        text.textContent = customText || "Sync Error (Semak Akses)";
+      } else {
+        dot.className = "w-2 h-2 rounded-full bg-slate-400";
+        text.textContent = customText || "Mod Tempatan (Offline)";
+      }
+    }
+
+    function loadLocalState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_STATE);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = {
+            ...state,
+            ...parsed,
+            brand: { ...state.brand, ...(parsed.brand || {}) },
+            vehicle: { ...DEFAULT_VEHICLE_DATA, ...(parsed.vehicle || {}) }
+          };
+        }
+      } catch (e) {}
+    }
+
+    let autoPushTimer = null;
+    function persistState(triggerCloud = true) {
+      state.lastUpdated = new Date().toISOString();
+      try {
+        localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(state));
+      } catch (e) {}
+      if (triggerCloud && getWebAppUrl()) {
+        clearTimeout(autoPushTimer);
+        autoPushTimer = setTimeout(() => {
+          pushToGoogleSheets(true);
+        }, 700);
+      }
+    }
+
+    // Two-Way Google Sheets Sync (Native google.script.run + JSONP GET + Form POST)
+    function pullFromGoogleSheets(silent = false) {
+      if (isNativeAppsScript()) {
+        if (syncInProgress) return Promise.resolve(false);
+        syncInProgress = true;
+        updateCloudStatusUI("syncing", "Menarik data Google Sheets...");
+        return new Promise((resolve) => {
+          window.google.script.run
+            .withSuccessHandler(function (rawStr) {
+              syncInProgress = false;
+              try {
+                const cloudData = rawStr ? JSON.parse(rawStr) : {};
+                if (cloudData && typeof cloudData === "object" && Object.keys(cloudData).length > 0) {
+                  state = {
+                    ...state,
+                    ...cloudData,
+                    brand: { ...state.brand, ...(cloudData.brand || {}) },
+                    vehicle: { ...DEFAULT_VEHICLE_DATA, ...(cloudData.vehicle || {}) }
+                  };
+                  try { localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(state)); } catch (e) {}
+                  renderAll();
+                }
+              } catch (e) {}
+              hasInitialCloudPull = true;
+              const nowStr = new Date().toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+              setLastSyncTime("Hari ini, " + nowStr);
+              updateCloudStatusUI("synced", "Google Sheets Auto-Synced (" + nowStr + ")");
+              if (!silent) showToast("Data berjaya diselaraskan dari Google Sheets");
+              resolve(true);
+            })
+            .withFailureHandler(function () {
+              syncInProgress = false;
+              updateCloudStatusUI("error", "Sync Error (Sesi UiTM)");
+              if (!silent) showToast("Gagal tarik data dari Google Sheets");
+              resolve(false);
+            })
+            .getAppData();
+        });
+      }
+
+      const url = getWebAppUrl();
+      if (!url) {
+        updateCloudStatusUI("offline");
+        return Promise.resolve(false);
+      }
+      if (syncInProgress) return Promise.resolve(false);
+      syncInProgress = true;
+      updateCloudStatusUI("syncing", "Menarik data Google Sheets...");
+
+      return new Promise((resolve) => {
+        const cbName = "gsheet_cb_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+        const script = document.createElement("script");
+        let finished = false;
+
+        const cleanup = () => {
+          syncInProgress = false;
+          delete window[cbName];
+          if (script.parentNode) script.parentNode.removeChild(script);
+        };
+
+        const timer = setTimeout(() => {
+          if (finished) return;
+          finished = true;
+          cleanup();
+          updateCloudStatusUI("error", "Sync Error (Timeout / Sekatan Akses)");
+          if (!silent) showToast("Gagal sambung Google Sheets. Semak akses 'Anyone'.");
+          resolve(false);
+        }, 12000);
+
+        window[cbName] = function (cloudData) {
+          if (finished) return;
+          finished = true;
+          clearTimeout(timer);
+          cleanup();
+          if (cloudData && typeof cloudData === "object" && Object.keys(cloudData).length > 0) {
+            state = {
+              ...state,
+              ...cloudData,
+              brand: { ...state.brand, ...(cloudData.brand || {}) },
+              vehicle: { ...DEFAULT_VEHICLE_DATA, ...(cloudData.vehicle || {}) },
+              webAppUrl: url
+            };
+            try {
+              localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(state));
+            } catch (e) {}
+            renderAll();
+          }
+          hasInitialCloudPull = true;
+          const nowStr = new Date().toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+          setLastSyncTime("Hari ini, " + nowStr);
+          updateCloudStatusUI("synced", "Google Sheets Synced (" + nowStr + ")");
+          if (!silent) showToast("Data berjaya diselaraskan dari Google Sheets");
+          resolve(true);
+        };
+
+        const sep = url.includes("?") ? "&" : "?";
+        script.src = url + sep + "callback=" + cbName + "&_t=" + Date.now();
+        script.onerror = function () {
+          if (finished) return;
+          finished = true;
+          clearTimeout(timer);
+          cleanup();
+          updateCloudStatusUI("error", "Sync Error (URL Tidak Sah)");
+          if (!silent) showToast("Gagal menghubungi URL Google Apps Script");
+          resolve(false);
+        };
+        document.body.appendChild(script);
+      });
+    }
+
+    function pushToGoogleSheets(silent = true) {
+      if (isNativeAppsScript()) {
+        updateCloudStatusUI("syncing", "Menyimpan ke Google Sheets...");
+        const jsonPayload = JSON.stringify(state);
+        return new Promise((resolve) => {
+          window.google.script.run
+            .withSuccessHandler(function () {
+              const nowStr = new Date().toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+              setLastSyncTime("Hari ini, " + nowStr);
+              updateCloudStatusUI("synced", "Google Sheets Auto-Synced (" + nowStr + ")");
+              if (!silent) showToast("Data berjaya disimpan ke Google Sheets");
+              resolve(true);
+            })
+            .withFailureHandler(function () {
+              updateCloudStatusUI("error", "Sync Error (Gagal Simpan)");
+              if (!silent) showToast("Gagal menyimpan ke Google Sheets");
+              resolve(false);
+            })
+            .saveAppData(jsonPayload);
+        });
+      }
+
+      const url = getWebAppUrl();
+      if (!url) return Promise.resolve(false);
+      updateCloudStatusUI("syncing", "Menghantar ke Google Sheets...");
+
+      const jsonPayload = JSON.stringify(state);
+      const body = new URLSearchParams();
+      body.append("payload", jsonPayload);
+
+      // Mobile-friendly POST with keepalive + no-cors
+      return fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        keepalive: true,
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body: body.toString()
+      })
+        .then(() => {
+          const nowStr = new Date().toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+          setLastSyncTime("Hari ini, " + nowStr);
+          updateCloudStatusUI("synced", "Google Sheets Synced (" + nowStr + ")");
+          if (!silent) showToast("Data berjaya dihantar ke Google Sheets");
+          return true;
+        })
+        .catch(() => {
+          updateCloudStatusUI("error", "Sync Error (Gagal Hantar dari Telefon)");
+          if (!silent) showToast("Ralat menghantar data. Pastikan dibuka dalam Chrome/Safari.");
+          return false;
+        });
+    }
+
+    window.manualSyncNow = async function () {
+      const url = getWebAppUrl();
+      if (!url) {
+        openCloudSyncModal();
+        showToast("Sila masukkan Web App URL Google Sheets dahulu");
+        return;
+      }
+      const icon = document.getElementById("manualSyncIcon");
+      if (icon) icon.classList.add("animate-spin");
+      // Pull dahulu jika baru buka di peranti kedua supaya data cloud tidak tertimpa
+      if (!hasInitialCloudPull) {
+        await pullFromGoogleSheets(false);
+      } else {
+        await pushToGoogleSheets(true);
+        await pullFromGoogleSheets(false);
+      }
+      if (icon) icon.classList.remove("animate-spin");
+    };
+
+    // Date & Formatting Helpers
+    function formatDisplayDate(isoStr) {
+      if (!isoStr) return "-";
+      const d = new Date(isoStr + "T00:00:00");
+      if (isNaN(d.getTime())) return isoStr;
+      return d.toLocaleDateString("ms-MY", { day: "numeric", month: "short", year: "numeric" });
+    }
+
+    function diffDaysFromRef(isoStr) {
+      const target = new Date(isoStr + "T00:00:00");
+      const msPerDay = 1000 * 60 * 60 * 24;
+      return Math.round((target - REFERENCE_DATE) / msPerDay);
+    }
+
+    function formatAgeSince(isoStr) {
+      const start = new Date(isoStr + "T00:00:00");
+      if (isNaN(start.getTime())) return "-";
+      let months = (REFERENCE_DATE.getFullYear() - start.getFullYear()) * 12 + (REFERENCE_DATE.getMonth() - start.getMonth());
+      if (REFERENCE_DATE.getDate() < start.getDate()) months--;
+      const years = Math.floor(months / 12);
+      const remMonths = months % 12;
+      if (years > 0 && remMonths > 0) return `${years} Thn ${remMonths} Bln`;
+      if (years > 0) return `${years} Tahun`;
+      return `${Math.max(0, remMonths)} Bulan`;
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toastNotification");
+      const text = document.getElementById("toastMessage");
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.remove("translate-y-20", "opacity-0");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.add("translate-y-20", "opacity-0");
+      }, 3200);
+    }
+
+    // Branding & Ownership Settings
+    function renderBranding() {
+      const titleEl = document.getElementById("appCommercialTitle");
+      const ownerEl = document.getElementById("appOwnerTag");
+      const brandTitle = state.brand?.title || "ArifOps Pro™";
+      const brandOwner = state.brand?.owner || "Arif • Operasi & Pengurusan Aset";
+
+      if (titleEl) {
+        if (brandTitle.endsWith("™")) {
+          const base = brandTitle.slice(0, -1);
+          titleEl.innerHTML = `${escapeHtml(base)}<span class="text-medical-600">™</span>`;
+        } else {
+          titleEl.textContent = brandTitle;
+        }
+      }
+      if (ownerEl) ownerEl.textContent = brandOwner;
+      document.title = `${brandTitle} | ${brandOwner}`;
+    }
+
+    window.openBrandSettingsModal = function () {
+      document.getElementById("inputBrandTitle").value = state.brand?.title || "ArifOps Pro™";
+      document.getElementById("inputOwnerName").value = state.brand?.owner || "Arif • Operasi & Pengurusan Aset";
+      const m = document.getElementById("brandSettingsModal");
+      m.classList.remove("hidden");
+      m.classList.add("flex");
+    };
+
+    window.closeBrandSettingsModal = function () {
+      const m = document.getElementById("brandSettingsModal");
+      m.classList.add("hidden");
+      m.classList.remove("flex");
+    };
+
+    window.saveBrandSettings = function (e) {
+      e.preventDefault();
+      state.brand = {
+        title: document.getElementById("inputBrandTitle").value.trim() || "ArifOps Pro™",
+        owner: document.getElementById("inputOwnerName").value.trim() || "Arif • Operasi & Pengurusan Aset"
+      };
+      renderBranding();
+      persistState(true);
+      closeBrandSettingsModal();
+      showToast("Identiti & penjenamaan aplikasi berjaya dikemas kini");
+    };
+
+    // Module Switcher
+    window.switchModule = function (moduleId) {
+      ["modul1", "modul2", "modul3"].forEach((id) => {
+        const view = document.getElementById("view-" + id);
+        const tab = document.getElementById("tab-" + id);
+        if (view) view.classList.toggle("hidden", id !== moduleId);
+        if (tab) {
+          if (id === moduleId) {
+            tab.className = "module-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-bold transition-all whitespace-nowrap bg-white text-medical-700 shadow-xs ring-1 ring-slate-200/60";
+          } else {
+            tab.className = "module-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap text-slate-600 hover:text-slate-900";
+          }
+        }
+      });
+    };
+
+    // Render Vehicle Summary, Expiry Cards, Odometer & Condition
+    function renderVehicleSection() {
+      const v = state.vehicle;
+      document.getElementById("displayVehicleModel").textContent = v.model;
+      document.getElementById("displayPlateNo").textContent = v.plateNo;
+      document.getElementById("overallStatusSelect").value = v.overallStatus || "READY";
+
+      const expiryItems = [
+        { title: "Roadtax Kenderaan", date: v.roadtaxExpiry, icon: "file-badge", isAge: false },
+        { title: "Insurans Ambulans", date: v.insuranceExpiry, icon: "shield-check", isAge: false },
+        { title: "Pemeriksaan Puspakom", date: v.puspakomExpiry, icon: "clipboard-check", isAge: false },
+        { title: "Lesen Pemandu", date: v.driverLicenseExpiry, icon: "id-card", isAge: false },
+        { title: "Bateri Kenderaan", date: v.batteryChangedDate, icon: "battery-charging", isAge: true },
+        { title: "4 Tayar + Tayar Spare", date: v.tyresChangedDate, icon: "disc", isAge: true }
+      ];
+
+      const container = document.getElementById("statusCardsContainer");
+      container.innerHTML = expiryItems.map((item) => {
+        if (item.isAge) {
+          const ageText = formatAgeSince(item.date);
+          const daysOld = Math.abs(diffDaysFromRef(item.date));
+          const isOld = daysOld > 730;
+          const barColor = isOld ? "bg-amber-500" : "bg-sky-500";
+          const badgeStyle = isOld ? "bg-amber-50 text-amber-700 border-amber-200" : "bg-sky-50 text-sky-700 border-sky-200";
+          return `
+            <div class="relative overflow-hidden bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs card-hover">
+              <div class="absolute top-0 inset-x-0 h-1 ${barColor}"></div>
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${item.title}</span>
+                  <div class="text-xl font-extrabold text-slate-900 mt-1">${ageText}</div>
+                  <p class="text-xs text-slate-500 mt-1">Tukar pada: <strong class="text-slate-700">${formatDisplayDate(item.date)}</strong></p>
+                </div>
+                <span class="px-2.5 py-1 text-[11px] font-bold rounded-lg border ${badgeStyle}">
+                  ${isOld ? "Semak Keadaan" : "Usia Komponen"}
+                </span>
+              </div>
+            </div>
+          `;
+        } else {
+          const daysLeft = diffDaysFromRef(item.date);
+          let barColor = "bg-emerald-500";
+          let badgeStyle = "bg-emerald-50 text-emerald-700 border-emerald-200";
+          let statusLabel = `Baki ${daysLeft} Hari`;
+
+          if (daysLeft < 0) {
+            barColor = "bg-rose-500";
+            badgeStyle = "bg-rose-50 text-rose-700 border-rose-200";
+            statusLabel = `TAMAT TEMPOH (${Math.abs(daysLeft)} hari lepas)`;
+          } else if (daysLeft <= 45) {
+            barColor = "bg-amber-500";
+            badgeStyle = "bg-amber-50 text-amber-700 border-amber-200";
+            statusLabel = `Hampir Tamat (${daysLeft} hari)`;
+          }
+
+          return `
+            <div class="relative overflow-hidden bg-white rounded-2xl border ${daysLeft < 0 ? "border-rose-300 ring-1 ring-rose-100" : "border-slate-200/90"} p-5 shadow-2xs card-hover">
+              <div class="absolute top-0 inset-x-0 h-1 ${barColor}"></div>
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${item.title}</span>
+                  <div class="text-xl font-extrabold ${daysLeft < 0 ? "text-rose-700" : "text-slate-900"} mt-1">${formatDisplayDate(item.date)}</div>
+                  <p class="text-xs text-slate-500 mt-1">Status Tempoh Sah</p>
+                </div>
+                <span class="px-2.5 py-1 text-[11px] font-extrabold rounded-lg border ${badgeStyle}">
+                  ${statusLabel}
+                </span>
+              </div>
+            </div>
+          `;
+        }
+      }).join("");
+
+      // Odometer & Service Progress
+      const lastKm = Number(v.lastServiceKm) || 0;
+      const nextKm = Number(v.nextServiceKm) || 0;
+      const currKm = Number(v.currentOdometerKm) || lastKm;
+      const interval = Math.max(1, nextKm - lastKm);
+      const used = Math.max(0, currKm - lastKm);
+      const pct = Math.min(100, Math.round((used / interval) * 100));
+      const remaining = nextKm - currKm;
+
+      document.getElementById("lastServiceKmText").textContent = lastKm.toLocaleString() + " km";
+      document.getElementById("lastServiceDateText").textContent = formatDisplayDate(v.lastServiceDate);
+      document.getElementById("nextServiceKmText").textContent = nextKm.toLocaleString() + " km";
+      document.getElementById("currentOdometerInput").value = currKm;
+      document.getElementById("serviceProgressPct").textContent = pct + "%";
+
+      const pBar = document.getElementById("serviceProgressBar");
+      const sBadge = document.getElementById("serviceStatusBadge");
+      const kmRemEl = document.getElementById("kmRemainingText");
+
+      pBar.style.width = Math.max(4, pct) + "%";
+      if (remaining <= 0) {
+        kmRemEl.textContent = `Terlebih: ${Math.abs(remaining).toLocaleString()} km!`;
+        kmRemEl.className = "text-xs font-extrabold text-rose-600 block mt-0.5";
+        pBar.className = "h-full bg-rose-500 rounded-full transition-all duration-500";
+        sBadge.textContent = "Perlu Servis Segera";
+        sBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-700";
+      } else if (remaining <= 1000) {
+        kmRemEl.textContent = `Baki: ${remaining.toLocaleString()} km`;
+        kmRemEl.className = "text-xs font-bold text-amber-700 block mt-0.5";
+        pBar.className = "h-full bg-amber-500 rounded-full transition-all duration-500";
+        sBadge.textContent = "Hampir Servis";
+        sBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-700";
+      } else {
+        kmRemEl.textContent = `Baki: ${remaining.toLocaleString()} km`;
+        kmRemEl.className = "text-xs font-bold text-blue-700 block mt-0.5";
+        pBar.className = "h-full bg-medical-600 rounded-full transition-all duration-500";
+        sBadge.textContent = "Dalam Jadual";
+        sBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700";
+      }
+
+      // Vehicle Condition Checks
+      const conds = v.vehicleConditions || [];
+      const okCount = conds.filter((c) => c.ok).length;
+      document.getElementById("vehicleCheckCountBadge").textContent = `${okCount} / ${conds.length} Baik`;
+      document.getElementById("vehicleNotesInput").value = v.vehicleNotes || "";
+
+      const condGrid = document.getElementById("vehicleConditionGrid");
+      condGrid.innerHTML = conds.map((c) => `
+        <button type="button" onclick="toggleVehicleCondition('${c.id}')"
+          class="flex items-center justify-between p-3 rounded-xl border text-left transition-all ${c.ok ? "bg-slate-50/80 border-slate-200 hover:border-medical-300" : "bg-rose-50 border-rose-200"}">
+          <span class="text-xs font-semibold ${c.ok ? "text-slate-700" : "text-rose-800"}">${escapeHtml(c.label)}</span>
+          <span class="text-[11px] font-extrabold px-2 py-0.5 rounded-md ${c.ok ? "bg-emerald-100 text-emerald-700" : "bg-rose-200 text-rose-800"}">
+            ${c.ok ? "BAIK" : "ROSAK"}
+          </span>
+        </button>
+      `).join("");
+    }
+
+    window.updateVehicleStatus = function (newStatus) {
+      state.vehicle.overallStatus = newStatus;
+      persistState(true);
+      showToast("Status operasi ambulans dikemas kini");
+    };
+
+    window.saveCurrentOdometer = function () {
+      const val = Number(document.getElementById("currentOdometerInput").value);
+      if (!val || val < 0) {
+        showToast("Sila masukkan bacaan odometer yang sah");
+        return;
+      }
+      state.vehicle.currentOdometerKm = val;
+      renderVehicleSection();
+      persistState(true);
+      showToast("Bacaan odometer dikemas kini: " + val.toLocaleString() + " km");
+    };
+
+    window.toggleVehicleCondition = function (id) {
+      const item = state.vehicle.vehicleConditions.find((c) => c.id === id);
+      if (item) {
+        item.ok = !item.ok;
+        renderVehicleSection();
+        persistState(true);
+      }
+    };
+
+    window.saveVehicleNotes = function () {
+      state.vehicle.vehicleNotes = document.getElementById("vehicleNotesInput").value.trim();
+      persistState(true);
+      showToast("Catatan kenderaan disimpan");
+    };
+
+    // Vehicle Edit Modal Handlers
+    window.openVehicleEditModal = function () {
+      const v = state.vehicle;
+      document.getElementById("editModel").value = v.model;
+      document.getElementById("editPlate").value = v.plateNo;
+      document.getElementById("editRoadtax").value = v.roadtaxExpiry;
+      document.getElementById("editInsurance").value = v.insuranceExpiry;
+      document.getElementById("editPuspakom").value = v.puspakomExpiry;
+      document.getElementById("editDriverLicense").value = v.driverLicenseExpiry;
+      document.getElementById("editLastServiceDate").value = v.lastServiceDate;
+      document.getElementById("editLastServiceKm").value = v.lastServiceKm;
+      document.getElementById("editNextServiceKm").value = v.nextServiceKm;
+      document.getElementById("editBatteryDate").value = v.batteryChangedDate;
+      document.getElementById("editTyreDate").value = v.tyresChangedDate;
+
+      const m = document.getElementById("vehicleEditModal");
+      m.classList.remove("hidden");
+      m.classList.add("flex");
+    };
+
+    window.closeVehicleEditModal = function () {
+      const m = document.getElementById("vehicleEditModal");
+      m.classList.add("hidden");
+      m.classList.remove("flex");
+    };
+
+    window.saveVehicleDetails = function (e) {
+      e.preventDefault();
+      state.vehicle = {
+        ...state.vehicle,
+        model: document.getElementById("editModel").value.trim(),
+        plateNo: document.getElementById("editPlate").value.trim(),
+        roadtaxExpiry: document.getElementById("editRoadtax").value,
+        insuranceExpiry: document.getElementById("editInsurance").value,
+        puspakomExpiry: document.getElementById("editPuspakom").value,
+        driverLicenseExpiry: document.getElementById("editDriverLicense").value,
+        lastServiceDate: document.getElementById("editLastServiceDate").value,
+        lastServiceKm: Number(document.getElementById("editLastServiceKm").value),
+        nextServiceKm: Number(document.getElementById("editNextServiceKm").value),
+        batteryChangedDate: document.getElementById("editBatteryDate").value,
+        tyresChangedDate: document.getElementById("editTyreDate").value
+      };
+      renderVehicleSection();
+      persistState(true);
+      closeVehicleEditModal();
+      showToast("Maklumat & tarikh kenderaan berjaya dikemas kini");
+    };
+
+    // Medical Equipment Checklist Rendering & Actions
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    window.setStatusFilter = function (filterVal) {
+      state.statusFilter = filterVal;
+      ["ALL", "COMPLETE", "ISSUE"].forEach((key) => {
+        const btn = document.getElementById("filter-" + key);
+        if (!btn) return;
+        if (key === filterVal) {
+          btn.className = "status-filter-btn px-3 py-1 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-xs";
+        } else {
+          btn.className = "status-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900";
+        }
+      });
+      renderEquipmentList();
+    };
+
+    window.renderEquipmentList = function () {
+      const search = (document.getElementById("equipmentSearchInput")?.value || "").toLowerCase().trim();
+      const catFilter = document.getElementById("categoryFilterSelect")?.value || "ALL";
+      const statusFilter = state.statusFilter || "ALL";
+
+      const allItems = state.equipment || [];
+      const completeItems = allItems.filter((i) => i.checked && i.condition === "Baik");
+      const issueCount = allItems.length - completeItems.length;
+      const pct = allItems.length ? Math.round((completeItems.length / allItems.length) * 100) : 100;
+
+      document.getElementById("equipCompleteCount").textContent = `${completeItems.length} / ${allItems.length} Item`;
+      document.getElementById("equipCompletePct").textContent = `${pct}%`;
+      document.getElementById("equipProgressBar").style.width = `${pct}%`;
+
+      const issueBadge = document.getElementById("equipIssueBadge");
+      if (issueBadge) {
+        if (issueCount > 0) {
+          issueBadge.textContent = `${issueCount} Perlu Tindakan`;
+          issueBadge.classList.remove("hidden");
+        } else {
+          issueBadge.classList.add("hidden");
+        }
+      }
+
+      const filtered = allItems.filter((item) => {
+        if (catFilter !== "ALL" && item.category !== catFilter) return false;
+        if (search && !item.name.toLowerCase().includes(search) && !(item.note || "").toLowerCase().includes(search)) return false;
+        const isOk = item.checked && item.condition === "Baik";
+        if (statusFilter === "COMPLETE" && !isOk) return false;
+        if (statusFilter === "ISSUE" && isOk) return false;
+        return true;
+      });
+
+      const categories = [
+        "Airway & Oxygen Unit",
+        "Emergency Unit & IV Access",
+        "Wound Care, Bandages & Medications",
+        "Portable Suction Unit",
+        "Splints, Immobilization & Stretchers",
+        "Others & Safety"
+      ];
+
+      const container = document.getElementById("equipmentCategoriesContainer");
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="p-10 text-center text-sm text-slate-500">Tiada item peralatan sepadan dengan carian atau penapis anda.</div>`;
+        return;
+      }
+
+      container.innerHTML = categories.map((cat, idx) => {
+        const items = filtered.filter((i) => i.category === cat);
+        if (items.length === 0) return "";
+
+        return `
+          <div class="p-5 sm:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="text-sm font-extrabold text-slate-800 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-medical-50 text-medical-700 border border-medical-200 flex items-center justify-center text-xs font-extrabold">${idx + 1}</span>
+                <span>${escapeHtml(cat)}</span>
+              </h4>
+              <span class="text-xs font-semibold text-slate-500">${items.length} item</span>
+            </div>
+
+            <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider text-[11px]">
+                    <th class="py-2.5 px-3 w-10 text-center">Ada</th>
+                    <th class="py-2.5 px-3">Nama Peralatan / Ubat</th>
+                    <th class="py-2.5 px-3 w-24">Kuantiti</th>
+                    <th class="py-2.5 px-3 w-36">Status</th>
+                    <th class="py-2.5 px-3 w-36">Tarikh Luput</th>
+                    <th class="py-2.5 px-3">Catatan</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${items.map((item) => {
+                    const hasIssue = !item.checked || item.condition !== "Baik";
+                    return `
+                      <tr class="${hasIssue ? "bg-rose-50/50" : "hover:bg-slate-50/70"} transition-colors">
+                        <td class="py-2.5 px-3 text-center">
+                          <input type="checkbox" ${item.checked ? "checked" : ""} onchange="updateEquipField('${item.id}', 'checked', this.checked)"
+                            class="w-4 h-4 rounded accent-medical-600 cursor-pointer" />
+                        </td>
+                        <td class="py-2.5 px-3 font-bold text-slate-800">${escapeHtml(item.name)}</td>
+                        <td class="py-2.5 px-3">
+                          <input type="number" min="0" value="${item.qty}" onchange="updateEquipField('${item.id}', 'qty', Number(this.value))"
+                            class="w-16 px-2 py-1 border border-slate-200 rounded-lg font-bold text-center bg-white" />
+                        </td>
+                        <td class="py-2.5 px-3">
+                          <select onchange="updateEquipField('${item.id}', 'condition', this.value)"
+                            class="w-full px-2 py-1 border rounded-lg font-bold ${item.condition === "Baik" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-rose-300 bg-rose-100 text-rose-800"}">
+                            <option value="Baik" ${item.condition === "Baik" ? "selected" : ""}>Baik / Lengkap</option>
+                            <option value="Perlu Tambah" ${item.condition === "Perlu Tambah" ? "selected" : ""}>Perlu Tambah</option>
+                            <option value="Rosak" ${item.condition === "Rosak" ? "selected" : ""}>Rosak</option>
+                            <option value="Tamat Tempoh" ${item.condition === "Tamat Tempoh" ? "selected" : ""}>Tamat Tempoh</option>
+                          </select>
+                        </td>
+                        <td class="py-2.5 px-3">
+                          <input type="date" value="${item.expiry || ""}" onchange="updateEquipField('${item.id}', 'expiry', this.value)"
+                            class="px-2 py-1 border border-slate-200 rounded-lg text-slate-600 bg-white" />
+                        </td>
+                        <td class="py-2.5 px-3">
+                          <input type="text" value="${escapeHtml(item.note || "")}" placeholder="Catatan..." onchange="updateEquipField('${item.id}', 'note', this.value)"
+                            class="w-full min-w-[120px] px-2 py-1 border border-slate-200 rounded-lg text-slate-600 bg-white" />
+                        </td>
+                      </tr>
+                    `;
+                  }).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }).join("");
+    };
+
+    window.updateEquipField = function (id, field, val) {
+      const item = state.equipment.find((i) => i.id === id);
+      if (!item) return;
+      item[field] = val;
+      if (field === "condition" && val !== "Baik") {
+        item.checked = false;
+      }
+      renderEquipmentList();
+      persistState(true);
+    };
+
+    // Add Equipment Modal Handlers
+    window.openAddEquipmentModal = function () {
+      const m = document.getElementById("addEquipmentModal");
+      m.classList.remove("hidden");
+      m.classList.add("flex");
+    };
+
+    window.closeAddEquipmentModal = function () {
+      const m = document.getElementById("addEquipmentModal");
+      m.classList.add("hidden");
+      m.classList.remove("flex");
+    };
+
+    window.handleAddEquipment = function (e) {
+      e.preventDefault();
+      const newItem = {
+        id: "eq_" + Date.now(),
+        category: document.getElementById("newEquipCategory").value,
+        name: document.getElementById("newEquipName").value.trim(),
+        checked: true,
+        qty: Number(document.getElementById("newEquipQty").value) || 1,
+        expiry: document.getElementById("newEquipExpiry").value || "",
+        condition: "Baik",
+        note: document.getElementById("newEquipNote").value.trim()
+      };
+      state.equipment.push(newItem);
+      renderEquipmentList();
+      persistState(true);
+      e.target.reset();
+      closeAddEquipmentModal();
+      showToast("Item baharu berjaya ditambah ke senarai semak");
+    };
+
+    // Inspection Audit Log Handlers
+    window.recordInspectionLog = function () {
+      const total = state.equipment.length;
+      const okCount = state.equipment.filter((i) => i.checked && i.condition === "Baik").length;
+      const logEntry = {
+        id: "log_" + Date.now(),
+        timestamp: new Date().toLocaleString("ms-MY"),
+        odometer: state.vehicle.currentOdometerKm,
+        status: state.vehicle.overallStatus,
+        summary: `${okCount}/${total} peralatan lengkap & baik`
+      };
+      state.auditLogs.unshift(logEntry);
+      persistState(true);
+      showToast("Rekod pemeriksaan rasmi disahkan & disimpan");
+    };
+
+    window.openAuditLogModal = function () {
+      const list = document.getElementById("auditLogListContainer");
+      const logs = state.auditLogs || [];
+      if (logs.length === 0) {
+        list.innerHTML = `<p class="text-sm text-slate-500 text-center py-6">Belum ada rekod pengesahan pemeriksaan disimpan.</p>`;
+      } else {
+        list.innerHTML = logs.map((l) => `
+          <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between text-xs">
+            <div>
+              <p class="font-bold text-slate-900">${escapeHtml(l.summary)}</p>
+              <p class="text-slate-500 mt-0.5">Odometer: ${Number(l.odometer).toLocaleString()} km • Status: ${escapeHtml(l.status)}</p>
+            </div>
+            <span class="text-slate-400 font-medium">${escapeHtml(l.timestamp)}</span>
+          </div>
+        `).join("");
+      }
+      const m = document.getElementById("auditLogModal");
+      m.classList.remove("hidden");
+      m.classList.add("flex");
+    };
+
+    window.closeAuditLogModal = function () {
+      const m = document.getElementById("auditLogModal");
+      m.classList.add("hidden");
+      m.classList.remove("flex");
+    };
+
+    // Cloud Sync Modal Handlers
+    window.openCloudSyncModal = function () {
+      const currentUrl = getWebAppUrl();
+      document.getElementById("googleSheetsUrlInput").value = currentUrl;
+      const testLink = document.getElementById("webAppLoginTestLink");
+      if (testLink && currentUrl) {
+        testLink.href = currentUrl;
+      }
+      updateLastSyncDisplay();
+      const m = document.getElementById("cloudSyncModal");
+      m.classList.remove("hidden");
+      m.classList.add("flex");
+    };
+
+    window.closeCloudSyncModal = function () {
+      const m = document.getElementById("cloudSyncModal");
+      m.classList.add("hidden");
+      m.classList.remove("flex");
+    };
+
+    window.saveGoogleSheetsUrl = async function (e) {
+      e.preventDefault();
+      const url = document.getElementById("googleSheetsUrlInput").value.trim();
+      if (!url) {
+        showToast("Sila tampal Web App URL Google Sheets dahulu");
+        return;
+      }
+      setWebAppUrlStorage(url);
+      const testLink = document.getElementById("webAppLoginTestLink");
+      if (testLink) {
+        testLink.href = url;
+      }
+      closeCloudSyncModal();
+      // Pull dahulu dari Google Sheets supaya data sedia ada dari komputer terus masuk ke telefon!
+      const pulled = await pullFromGoogleSheets(false);
+      if (pulled && (!state.lastUpdated || Object.keys(state).length === 0)) {
+        await pushToGoogleSheets(true);
+      }
+    };
+
+    window.disconnectGoogleSheets = function () {
+      setWebAppUrlStorage("");
+      document.getElementById("googleSheetsUrlInput").value = "";
+      updateCloudStatusUI("offline");
+      showToast("Sambungan Google Sheets diputuskan");
+    };
+
+    window.openWebAppLoginTest = function () {
+      const url = document.getElementById("googleSheetsUrlInput").value.trim() || getWebAppUrl();
+      if (!url) {
+        showToast("Tiada URL untuk diuji");
+        return;
+      }
+      window.open(url, "_blank");
+    };
+
+    window.copyAppsScriptCode = function () {
+      const codeText = document.getElementById("appsScriptCodeBlock").innerText;
+      const ta = document.createElement("textarea");
+      ta.value = codeText;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showToast("Kod Google Apps Script berjaya disalin");
+      } catch (e) {
+        showToast("Sila salin kod secara manual dari kotak hitam");
+      }
+      document.body.removeChild(ta);
+    };
+
+    // Export CSV Report
+    window.exportToCSV = function () {
+      const rows = [
+        [state.brand?.title || "ArifOps Pro", state.brand?.owner || "Arif • Operasi & Pengurusan Aset"],
+        ["Model", state.vehicle.model, "Unit", state.vehicle.plateNo, "Status", state.vehicle.overallStatus],
+        ["Roadtax", state.vehicle.roadtaxExpiry, "Insurans", state.vehicle.insuranceExpiry, "Puspakom", state.vehicle.puspakomExpiry],
+        ["Lesen Pemandu", state.vehicle.driverLicenseExpiry, "Odometer Semasa", state.vehicle.currentOdometerKm, "Target Servis", state.vehicle.nextServiceKm],
+        [],
+        ["Kategori", "Nama Peralatan", "Disemak", "Kuantiti", "Status", "Tarikh Luput", "Catatan"]
+      ];
+
+      state.equipment.forEach((item) => {
+        rows.push([
+          item.category,
+          item.name,
+          item.checked ? "Ya" : "Tidak",
+          item.qty,
+          item.condition,
+          item.expiry || "-",
+          item.note || "-"
+        ]);
+      });
+
+      const csvContent = "data:text/csv;charset=utf-8," + rows.map((r) => r.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+      const link = document.createElement("a");
+      link.setAttribute("href", encodeURI(csvContent));
+      link.setAttribute("download", `Laporan_Ambulans_${REFERENCE_DATE_STR}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast("Laporan CSV berjaya dimuat turun");
+    };
+
+    function renderAll() {
+      renderBranding();
+      renderVehicleSection();
+      renderEquipmentList();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Initialize Application
+    window.addEventListener("DOMContentLoaded", function () {
+      loadLocalState();
+      renderAll();
+      if (getWebAppUrl()) {
+        pullFromGoogleSheets(true);
+      } else {
+        updateCloudStatusUI("offline");
+      }
+    });
+  </script>
+</body>
+</html>
